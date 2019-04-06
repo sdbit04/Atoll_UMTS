@@ -19,10 +19,13 @@ def revert_field_name(NewOrig_dict, xml_path_in, xml_path_out):
         file_out.write(serial)
 
 
-def beautify_family_attr(origReplacement, replacementOrig, xml_path_in, xml_path_out):
-    _xml_path_in = xml_path_in
-    _xml_path_out = xml_path_out
-    _xml_path_out_tmp = xml_path_out  # TODO: Need to configure this path
+def beautify_family_attr(origReplacement, replacementOrig, xml_dir_in, xml_dir_out):
+    _xml_dir_in = xml_dir_in
+    _xml_dir_out = xml_dir_out
+    _xml_path_in = os.path.realpath(os.path.join(_xml_dir_in, "antennas.xml"))
+    _xml_path_out = os.path.realpath(os.path.join(_xml_dir_out, "antennas.xml"))
+    _xml_path_out_tmp = os.path.realpath(os.path.join(_xml_dir_out, "antennas_tmp.xml"))
+
     replace_field_name(origReplacement, _xml_path_in, _xml_path_out_tmp)
     xml_tree_object = et.parse(_xml_path_out_tmp)
     data = xml_tree_object.find("rs_data/rs_insert") # Find immediate parent node
@@ -60,6 +63,4 @@ def create_profile_translator(xml_dir, antenna_n_family_dir, profiletranslator_p
         for antenna in uniq_antennas:
             if antenna in antenna_k:
                 print("{}\t{}/{}".format(antenna, antenna_n_family[antenna], antenna), file=profiletranslator)
-
-
 

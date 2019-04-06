@@ -1,11 +1,8 @@
 from Atoll_UMTS.antennas_xml_update import *
 
-# base_path = os.path.dirname(os.path.realpath(__file__))
-# xml_dir = os.path.realpath(os.path.join(base_path, "..\\Atoll3G"))
 xml_dir_in = "D:\D_drive_BACKUP\Study\PycharmProjects\Atoll_UMTS2\Atoll3G"
 xml_dir_out = "D:\D_drive_BACKUP\Study\PycharmProjects\Atoll_UMTS2\Atoll3G_out"
-xml_path_in = os.path.realpath(os.path.join(xml_dir_in, "antennas.xml"))
-xml_path_out = os.path.realpath(os.path.join(xml_dir_out, "antennas_b.xml"))
+
 profiletranslator_path_in = os.path.realpath(os.path.join(xml_dir_in, "PROFILESTRANSLATOR03.txt"))
 profiletranslator_path_out = os.path.realpath(os.path.join(xml_dir_out, "PROFILESTRANSLATOR04.txt"))
 
@@ -13,6 +10,6 @@ origReplacement = {"CUSTOM_NEMS_ANTENNA_NAME": "FAMILY", "z:row":"z_row","rs:dat
 replacementOrig = {"z_row":"z:row","rs_data":"rs:data","rs_insert" : "rs:insert","rs_nullable":"rs:nullable", "rs_fixedlength":"rs:fixedlength", "s_extends":"s:extends", "s_Schema":"s:Schema", "s_ElementType":"s:ElementType","s_AttributeType":"s:AttributeType","s_datatype":"s:datatype", "rs_updatable":"rs:updatable","dt_type":"dt:type","rs_number":"rs:number","rs_write":"rs:write","dt_maxLength":"dt:maxLength", "rs_precision":"rs:precision","rs_maybenull":"rs:maybenull", "rs_long":"rs:long", "xmlns_s":"xmlns:s", "xmlns_dt":"xmlns:dt","xmlns_rs":"xmlns:rs" ,"xmlns_z":"xmlns:z"}
 
 if __name__ == "__main__":
-    antenna_n_family = beautify_family_attr(origReplacement,replacementOrig,xml_path_in, xml_path_out)
+    antenna_n_family = beautify_family_attr(origReplacement,replacementOrig,xml_dir_in, xml_dir_out)
     # create_profile_translator(xml_dir, antenna_n_family, profiletranslator_path)
 
