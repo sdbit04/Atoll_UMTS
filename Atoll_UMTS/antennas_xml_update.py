@@ -44,12 +44,15 @@ def beautify_family_attr(origReplacement, replacementOrig, xml_dir_in, xml_dir_o
     return antenna_n_family
 
 
-def create_profile_translator(xml_dir, antenna_n_family_dir, profiletranslator_path):
+def create_profile_translator(xml_dir_in, xml_dir_out, antenna_n_family_dir):
+    _xml_dir_in = xml_dir_in
+    _xml_dir_out = xml_dir_out
+    profiletranslator_path_out = os.path.realpath(os.path.join(_xml_dir_out, "PROFILESTRANSLATOR03.txt"))
     antenna_n_family = antenna_n_family_dir
     antenna_k = antenna_n_family.keys()
-    utransmitter_file = os.path.realpath(os.path.join(xml_dir, "utransmitters.xml"))
-    utransmitter_file_out = os.path.realpath(os.path.join(xml_dir, "utransmitters_tmp.xml"))
-    with open(profiletranslator_path, 'w') as profiletranslator:
+    utransmitter_file = os.path.realpath(os.path.join(_xml_dir_in, "utransmitters.xml"))
+    utransmitter_file_out = os.path.realpath(os.path.join(_xml_dir_out, "utransmitters_tmp.xml"))
+    with open(profiletranslator_path_out, 'w') as profiletranslator:
         print("Name\tMatch", file=profiletranslator)
     utransmitter_fields = {"rs:data": "rsdata", "z:row": "zrow"}
     replace_field_name(utransmitter_fields, utransmitter_file, utransmitter_file_out)
@@ -59,7 +62,7 @@ def create_profile_translator(xml_dir, antenna_n_family_dir, profiletranslator_p
     for row in rows:
         uniq_antennas.add(row.get("ANTENNA_NAME"))
 
-    with open(profiletranslator_path, 'a') as profiletranslator:
+    with open(profiletranslator_path_out, 'a') as profiletranslator:
         for antenna in uniq_antennas:
             if antenna in antenna_k:
                 print("{}\t{}/{}".format(antenna, antenna_n_family[antenna], antenna), file=profiletranslator)
