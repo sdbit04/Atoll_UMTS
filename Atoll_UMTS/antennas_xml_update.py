@@ -137,15 +137,36 @@ class AtollXmlConverter(object):
     def copy_remaining_files(cls, in_dir, out_dir):
         l1 = os.listdir(in_dir)
         l2 = []
+        cls.logger_name.info("Coping remaining files")
         for d in l1:
             if d == "antennas.xml" or d == "PROFILESTRANSLATOR03.txt":
                 pass
             else:
                 l2.append(d)
         os.chdir(in_dir)
-        for f in l2:
-            print("{0}\\{1}".format(out_dir, f))
-            shutil.copy(f, "{0}\\{1}".format(out_dir, f))
+        try:
+            for f in l2:
+                # print("{0}/{1}".format(out_dir, f))
+                # shutil.copy(f, "{0}/{1}".format(out_dir, f))
+                # target_file_location = os.path.realpath(os.path.join(out_dir, f))
+                # print("Copying file {0} at {1}".format(f, target_file_location))
+                # shutil.copy(f, target_file_location)
+                shutil.copy(f, out_dir)
+        except:
+            print("Exception occur during copying files")
+        else:
+            cls.logger_name.info("All files has been copied")
+
+    @classmethod
+    def delete_tmp_files(cls, out_dir, *file_list):
+        out_dir = out_dir
+        for file_name in file_list:
+            full_file_name = os.path.join(out_dir, file_name)
+            print(full_file_name)
+            try:
+                os.remove(full_file_name)
+            except FileNotFoundError:
+                pass
 
 
 if __name__ == "__main__":
