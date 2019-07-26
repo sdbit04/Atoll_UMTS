@@ -161,8 +161,9 @@ class AtollXmlConverter(object):
     def delete_tmp_files(cls, out_dir, *file_list):
         out_dir = out_dir
         for file_name in file_list:
+            # print("file_name : {}".format(file_name))
             full_file_name = os.path.join(out_dir, file_name)
-            print(full_file_name)
+            # print(full_file_name)
             try:
                 os.remove(full_file_name)
             except FileNotFoundError:
@@ -208,4 +209,5 @@ if __name__ == "__main__":
     # os.system("del {}\*".format(xml_dir_out))
     antenna_n_family = AtollXmlConverter.beautify_family_attr(origReplacement,replacementOrig,xml_dir_in, xml_dir_out)
     AtollXmlConverter.create_profile_translator(xml_dir_in, xml_dir_out, antenna_n_family)
+    AtollXmlConverter.delete_tmp_files(xml_dir_out, "antennas_tmp.xml", "utransmitters_tmp.xml")
     AtollXmlConverter.copy_remaining_files(xml_dir_in, xml_dir_out)
